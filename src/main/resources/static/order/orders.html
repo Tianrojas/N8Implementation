@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management</title>
+    <script>
+        const apiUrl = 'http://localhost:8080/orders';
+
+        async function createOrder() {
+            const order = {
+                userId: document.getElementById('userId').value,
+                drinkName: document.getElementById('drinkName').value,
+                quantity: document.getElementById('quantity').value,
+                price: document.getElementById('price').value,
+                status: document.getElementById('status').value,
+                orderDate: new Date().toISOString()
+            };
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(order)
+            });
+
+            const data = await response.json();
+            alert(`Order created: ${JSON.stringify(data)}`);
+        }
+
+        // Obtener todas las órdenes
+        async function getAllOrders() {
+            const response = await fetch(apiUrl);
+            const orders = await response.json();
+            document.getElementById('orderList').innerText = JSON.stringify(orders, null, 2);
+        }
+
+        // Obtener una orden por ID
+        async function getOrderById() {
+            const orderId = document.getElementById('orderId').value;
+            const response = await fetch(`${apiUrl}/${orderId}`);
+            const order = await response.json();
+            document.getElementById('orderDetails').innerText = JSON.stringify(order, null, 2);
+        }
+
+        // Eliminar una orden por ID
+        async function deleteOrderById() {
+            const orderId = document.getElementById('deleteOrderId').value;
+            await fetch(`${apiUrl}/${orderId}`, {
+                method: 'DELETE'
+            });
+            alert('Order deleted');
+        }
+    </script>
+</head>
+<body>
+<h1>Order Management</h1>
+
+<h2>Create Order</h2>
+<input type="text" id="userId" placeholder="User ID">
+<input type="text" id="drinkName" placeholder="Drink Name">
+<input type="number" id="quantity" placeholder="Quantity">
+<input type="number" id="price" placeholder="Price">
+<input type="text" id="status" placeholder="Status">
+<button onclick="createOrder()">Create Order</button>
+
+<h2>Get All Orders</h2>
+<button onclick="getAllOrders()">Get All Orders</button>
+<pre id="orderList"></pre>
+
+<h2>Get Order by ID</h2>
+<input type="text" id="orderId" placeholder="Order ID">
+<button onclick="getOrderById()">Get Order</button>
+<pre id="orderDetails"></pre>
+
+<h2>Delete Order by ID</h2>
+<input type="text" id="deleteOrderId" placeholder="Order ID">
+<button onclick="deleteOrderById()">Delete Order</button>
+</body>
+</html>
