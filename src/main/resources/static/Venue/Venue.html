@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venues</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input, button {
+            padding: 8px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<h1>Venues</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Dirección</th>
+        <th>Ciudad</th>
+        <th>Teléfono</th>
+        <th>Tipo</th>
+    </tr>
+    </thead>
+    <tbody id="venueTableBody">
+    <!-- Venue rows will be inserted here -->
+    </tbody>
+</table>
+
+<h2>Add New Venue</h2>
+<form id="venueForm">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required><br>
+    <label for="direccion">Dirección:</label>
+    <input type="text" id="direccion" name="direccion" required><br>
+    <label for="ciudad">Ciudad:</label>
+    <input type="text" id="ciudad" name="ciudad" required><br>
+    <label for="telefono">Teléfono:</label>
+    <input type="text" id="telefono" name="telefono" required><br>
+    <label for="tipo">Tipo:</label>
+    <input type="text" id="tipo" name="tipo" required><br>
+    <button type="submit">Add Venue</button>
+</form>
+
+<script>
+    document.getElementById('venueForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const nombre = document.getElementById('nombre').value;
+        const direccion = document.getElementById('direccion').value;
+        const ciudad = document.getElementById('ciudad').value;
+        const telefono = document.getElementById('telefono').value;
+        const tipo = document.getElementById('tipo').value;
+
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td>Auto-generated</td>
+            <td>${nombre}</td>
+            <td>${direccion}</td>
+            <td>${ciudad}</td>
+            <td>${telefono}</td>
+            <td>${tipo}</td>
+        `;
+        document.getElementById('venueTableBody').appendChild(newRow);
+
+        document.getElementById('venueForm').reset();
+    });
+</script>
+</body>
+</html>
