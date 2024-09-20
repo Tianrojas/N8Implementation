@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boletas de Eventos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <h1>Boletas de Eventos</h1>
+</header>
+
+<section class="buttons-section">
+    <button class="btn" onclick="verBoletas()">Ver Boletas Adquiridas</button>
+    <button class="btn" onclick="adquirirBoletas()">Adquirir Boleta</button>
+</section>
+
+<section id="boletas-info">
+    <!-- Aquí se mostrarán las boletas -->
+</section>
+
+<script>
+    function verBoletas() {
+        document.getElementById('boletas-info').innerHTML = '<h2>Boletas Adquiridas</h2><p>Aquí aparecerán las boletas que has adquirido.</p>';
+    }
+
+    function adquirirBoletas() {
+        document.getElementById('boletas-info').innerHTML = '<h2>Adquirir Boleta</h2><p>Aquí podrás adquirir nuevas boletas.</p>';
+    }
+</script>
+</body>
+</html>

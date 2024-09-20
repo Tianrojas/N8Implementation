@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    padding: 20px 0;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #2c3e50;
+}
+
+.buttons-section {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.btn {
+    background-color: #2980b9;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #3498db;
+}
+
+#boletas-info {
+    text-align: center;
+    margin-top: 40px;
+}
+
+h2 {
+    font-size: 2em;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.2em;
+    color: #7f8c8d;
+}
