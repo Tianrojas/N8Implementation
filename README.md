@@ -1,6 +1,4 @@
-Aquí tienes la sección reestructurada en Markdown para tu README, enfocada en la implementación de N8:
 
-```markdown
 # N8: Plataforma de Intermediación entre Bares, Discotecas y Clientes
 
 ## Presentación General del Proyecto
@@ -95,4 +93,3 @@ Desarrollar un prototipo visual utilizando IA generativa y un modelo de datos, s
 ## Conclusiones
 
 El desarrollo de N8 no solo resolverá los problemas actuales de las filas en los bares y discotecas, sino que también brindará una experiencia mejorada al usuario final. Con una sólida base de datos y un diseño intuitivo, N8 se posicionará como una solución valiosa en el mercado.
-```
