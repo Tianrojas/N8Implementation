@@ -49,7 +49,7 @@ Desarrollar un prototipo visual utilizando IA generativa y un modelo de datos, s
          - **Total**: Monto total del pedido (Double).
          - Implementar clases con los tipos de datos y métodos necesarios.
         
-       4. **Boleta**
+      4. **Boleta**
          - **ID**: Identificador único de la boleta (String).
          - **ID de Pedido**: Referencia al pedido asociado (String).
          - **Fecha de Emisión**: Fecha y hora en que se emitió la boleta (Date).
