@@ -59,7 +59,7 @@ Desarrollar un prototipo visual utilizando IA generativa y un modelo de datos, s
 
 3. **Prototipo Visual con IA Generativa:**
     - Investigar y seleccionar herramientas de IA generativa.
-    - Crear prototipos visuales que guíen el diseño de la interfaz del proyecto.
+    - Crear prototipos visuales que guíen el diseño de la interfaz del proyecto. [Modelo de Interfaz](https://marvelapp.com/prototype/705e5gg)
 
 4. **Implementación de Controladores y Servicios REST:**
     - Desarrollar controladores para gestionar peticiones HTTP (GET, POST, PUT, DELETE).
