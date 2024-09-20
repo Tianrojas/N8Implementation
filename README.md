@@ -32,13 +32,13 @@ Desarrollar un prototipo visual utilizando IA generativa y un modelo de datos, s
          - **Método de Pago**: Tipo de pago preferido (String; puede ser tarjeta de crédito, débito, etc.).
          - **Rol**: Tipo de usuario (String; puede ser cliente, administrador, etc.).
       
-      2. **Producto**
-         - **ID**: Identificador único del producto (String).
-         - **Nombre**: Nombre del producto (String; por ejemplo, nombre de la bebida).
-         - **Descripción**: Descripción breve del producto (String).
-         - **Precio**: Precio del producto (Double).
-         - **Categoría**: Categoría del producto (String; puede ser bebida, comida, etc.).
-         - **Disponibilidad**: Indica si el producto está disponible (Boolean).
+      2. **Establecimiento**
+         - **ID**: Identificador único del Establecimiento (Long).
+         - **Nombre**: Nombre del producto (String).
+         - **Dirección**: Dirección del lugar(String)
+         - **Ciudad**: Ciudad del establecimiento (String).
+         - **Telefono**: Telefono de contacto del lugar.
+         - **Tipo**: Indica el tipo de establecimiento (Bar, disco, etc).
       
       3. **Pedido**
          - **ID**: Identificador único del pedido (String).
