@@ -13,20 +13,116 @@
 
 <section class="buttons-section">
     <button class="btn" onclick="verBoletas()">Ver Boletas Adquiridas</button>
-    <button class="btn" onclick="adquirirBoletas()">Adquirir Boleta</button>
+    <button class="btn" onclick="adquirirBoleta()">Adquirir Boleta</button>
+    <button class="btn" onclick="eliminarBoleta()">Eliminar Boleta</button>
+    <button class="btn" onclick="boletasPasadas()">Ver Boletas de Eventos Pasados</button>
 </section>
 
 <section id="boletas-info">
-    <!-- Aquí se mostrarán las boletas -->
+    <!-- Aquí se mostrarán las boletas o formularios -->
 </section>
 
 <script>
+    // Función para mostrar todas las boletas
     function verBoletas() {
-        document.getElementById('boletas-info').innerHTML = '<h2>Boletas Adquiridas</h2><p>Aquí aparecerán las boletas que has adquirido.</p>';
+        fetch('/boletas')
+            .then(response => response.json())
+            .then(data => {
+                let html = '<h2>Boletas Adquiridas</h2>';
+                data.forEach(boleta => {
+                    html += `<p>Evento: ${boleta.eventName}, Precio: $${boleta.price}, Fecha: ${boleta.purchaseDate}</p>`;
+                });
+                document.getElementById('boletas-info').innerHTML = html;
+            });
     }
 
-    function adquirirBoletas() {
-        document.getElementById('boletas-info').innerHTML = '<h2>Adquirir Boleta</h2><p>Aquí podrás adquirir nuevas boletas.</p>';
+    // Formulario para adquirir una boleta
+    function adquirirBoleta() {
+        let html = `
+            <h2>Adquirir Boleta</h2>
+            <form id="boletaForm">
+                <label for="eventName">Nombre del Evento:</label>
+                <input type="text" id="eventName" name="eventName" required><br><br>
+                <label for="userId">ID de Usuario:</label>
+                <input type="number" id="userId" name="userId" required><br><br>
+                <label for="price">Precio:</label>
+                <input type="number" id="price" name="price" required><br><br>
+                <button type="button" onclick="guardarBoleta()">Guardar Boleta</button>
+            </form>
+        `;
+        document.getElementById('boletas-info').innerHTML = html;
+    }
+
+    // Función para guardar una boleta
+    function guardarBoleta() {
+        const form = document.getElementById('boletaForm');
+        const boleta = {
+            eventName: form.eventName.value,
+            userId: form.userId.value,
+            price: form.price.value,
+            purchaseDate: new Date().toISOString()
+        };
+
+        fetch('/boletas', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(boleta)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("Boleta guardada con éxito");
+                    verBoletas();  // Volvemos a mostrar todas las boletas
+                } else {
+                    alert("Error al guardar la boleta");
+                }
+            });
+    }
+
+    // Formulario para eliminar una boleta
+    function eliminarBoleta() {
+        let html = `
+            <h2>Eliminar Boleta</h2>
+            <label for="boletaId">ID de la Boleta:</label>
+            <input type="text" id="boletaId" name="boletaId" required><br><br>
+            <button onclick="eliminar()">Eliminar</button>
+        `;
+        document.getElementById('boletas-info').innerHTML = html;
+    }
+
+    // Función para eliminar una boleta
+    function eliminar() {
+        const boletaId = document.getElementById('boletaId').value;
+
+        fetch(`/boletas/${boletaId}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("Boleta eliminada con éxito");
+                    verBoletas();
+                } else {
+                    alert("Error al eliminar la boleta");
+                }
+            });
+    }
+
+    // Función para mostrar boletas de eventos pasados
+    function boletasPasadas() {
+        fetch('/boletas')
+            .then(response => response.json())
+            .then(data => {
+                let html = '<h2>Boletas de Eventos Pasados</h2>';
+                const hoy = new Date();
+                data.forEach(boleta => {
+                    let fechaEvento = new Date(boleta.purchaseDate);
+                    if (fechaEvento < hoy) {
+                        html += `<p>Evento: ${boleta.eventName}, Precio: $${boleta.price}, Fecha: ${boleta.purchaseDate}</p>`;
+                    }
+                });
+                document.getElementById('boletas-info').innerHTML = html;
+            });
     }
 </script>
 </body>

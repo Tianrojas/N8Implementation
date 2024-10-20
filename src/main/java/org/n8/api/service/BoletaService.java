@@ -5,6 +5,7 @@ import org.n8.api.repository.BoletaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,5 +38,14 @@ public class BoletaService {
     // Obtener boletas por ID de usuario
     public List<Boleta> getBoletasByUserId(Long userId) {
         return boletaRepository.findByUserId(userId);
+    }
+    // Obtener boletas de eventos pasados
+    public List<Boleta> getBoletasPasadas() {
+        List<Boleta> boletas = boletaRepository.findAll();
+        LocalDateTime now = LocalDateTime.now();
+        // Filtrar boletas cuya fecha de compra sea antes de la fecha actual
+        return boletas.stream()
+                .filter(boleta -> boleta.getPurchaseDate().isBefore(now))
+                .toList();
     }
 }

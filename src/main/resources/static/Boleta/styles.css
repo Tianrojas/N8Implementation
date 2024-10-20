@@ -56,3 +56,13 @@ p {
     font-size: 1.2em;
     color: #7f8c8d;
 }
+
+form {
+    margin: 20px;
+    text-align: left;
+}
+
+label, input {
+    display: block;
+    margin: 10px 0;
+}

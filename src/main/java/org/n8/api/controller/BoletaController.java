@@ -38,7 +38,11 @@ public class BoletaController {
         return boleta.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
+    @GetMapping("/pasados")
+    public ResponseEntity<List<Boleta>> getBoletasPasadas() {
+        List<Boleta> boletasPasadas = boletaService.getBoletasPasadas();
+        return new ResponseEntity<>(boletasPasadas, HttpStatus.OK);
+    }
     // Eliminar boleta por su ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBoletaById(@PathVariable String id) {
