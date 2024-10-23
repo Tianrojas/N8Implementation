@@ -2,6 +2,7 @@ package org.n8.api.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.List;
 
 @Document(collection = "users")
 public class User {
@@ -12,6 +13,24 @@ public class User {
     private String telefono;
     private String metodoPago;
     private String rol;
+
+    private List<String> ticketIds;
+    private List<String> venueIds;
+
+    public User() {
+    }
+
+    public User(String id, String nombre, String email, String telefono, String metodoPago, String rol,
+                List<String> ticketIds, List<String> venueIds) {
+        this.id = id;
+        this.nombre = nombre;
+        this.email = email;
+        this.telefono = telefono;
+        this.metodoPago = metodoPago;
+        this.rol = rol;
+        this.ticketIds = ticketIds;
+        this.venueIds = venueIds;
+    }
 
     public String getId() {
         return id;
@@ -59,5 +78,21 @@ public class User {
 
     public void setRol(String rol) {
         this.rol = rol;
+    }
+
+    public List<String> getTicketIds() {
+        return ticketIds;
+    }
+
+    public void setTicketIds(List<String> ticketIds) {
+        this.ticketIds = ticketIds;
+    }
+
+    public List<String> getVenueIds() {
+        return venueIds;
+    }
+
+    public void setVenueIds(List<String> venueIds) {
+        this.venueIds = venueIds;
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,9 +44,20 @@ public class BoletaService {
     public List<Boleta> getBoletasPasadas() {
         List<Boleta> boletas = boletaRepository.findAll();
         LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"); // Ajusta el formato según el formato de tus fechas
+
         // Filtrar boletas cuya fecha de compra sea antes de la fecha actual
         return boletas.stream()
-                .filter(boleta -> boleta.getPurchaseDate().isBefore(now))
+                .filter(boleta -> {
+                    try {
+                        LocalDateTime purchaseDate = LocalDateTime.parse(boleta.getPurchaseDate(), formatter);
+                        return purchaseDate.isBefore(now);
+                    } catch (Exception e) {
+                        // Manejo de excepción si el parseo falla
+                        e.printStackTrace();
+                        return false; // Si no se puede parsear, no consideramos la boleta como pasada
+                    }
+                })
                 .toList();
     }
 }

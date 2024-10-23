@@ -6,21 +6,21 @@ import java.time.LocalDateTime;
 @Document(collection = "orders")
 public class Order {
     @Id
-    private Long orderId;
+    private String orderId;
 
-    private Long userId;
+    private String userId;
     private String drinkName;
-    private int quantity;
-    private double price;
+    private String quantity;
+    private String price;
     private String status;
-    private LocalDateTime orderDate;
+    private String orderDate;
 
     // Constructor vacío para JPA
     public Order() {
     }
 
     // Constructor con parámetros
-    public Order(Long userId, String drinkName, int quantity, double price, String status, LocalDateTime orderDate) {
+    public Order(String userId, String drinkName, String quantity, String price, String status, String orderDate) {
         this.userId = userId;
         this.drinkName = drinkName;
         this.quantity = quantity;
@@ -30,19 +30,19 @@ public class Order {
     }
 
     // Getters y Setters
-    public Long getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -54,19 +54,19 @@ public class Order {
         this.drinkName = drinkName;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -78,11 +78,11 @@ public class Order {
         this.status = status;
     }
 
-    public LocalDateTime getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(LocalDateTime orderDate) {
+    public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
     }
 

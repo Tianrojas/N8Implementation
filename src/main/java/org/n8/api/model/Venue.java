@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "venues")
 public class Venue {
     @Id
-    private Long id;
+    private String id;
     private String nombre;
     private String direccion;
     private String ciudad;
@@ -18,7 +18,7 @@ public class Venue {
     }
 
     // Constructor con parámetros
-    public Venue(Long id, String nombre, String direccion, String ciudad, String telefono, String tipo) {
+    public Venue(String id, String nombre, String direccion, String ciudad, String telefono, String tipo) {
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -28,11 +28,11 @@ public class Venue {
     }
 
     // Getters y Setters
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

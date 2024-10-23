@@ -21,7 +21,7 @@ public class VenueController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Venue> getVenueById(@PathVariable Long id) {
+    public ResponseEntity<Venue> getVenueById(@PathVariable String id) {
         Venue venue = venueService.getVenueById(id);
         if (venue != null) {
             return ResponseEntity.ok(venue);
@@ -36,7 +36,7 @@ public class VenueController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Venue> updateVenue(@PathVariable Long id, @RequestBody Venue venueDetails) {
+    public ResponseEntity<Venue> updateVenue(@PathVariable String id, @RequestBody Venue venueDetails) {
         Venue updatedVenue = venueService.updateVenue(id, venueDetails);
         if (updatedVenue != null) {
             return ResponseEntity.ok(updatedVenue);
@@ -46,7 +46,7 @@ public class VenueController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteVenue(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteVenue(@PathVariable String id) {
         if (venueService.deleteVenue(id)) {
             return ResponseEntity.noContent().build();
         } else {

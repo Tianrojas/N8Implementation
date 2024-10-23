@@ -17,7 +17,7 @@ public class VenueService {
         return venueRepository.findAll();
     }
 
-    public Venue getVenueById(Long id) {
+    public Venue getVenueById(String id) {
         return venueRepository.findById(id).orElse(null);
     }
 
@@ -25,7 +25,7 @@ public class VenueService {
         return venueRepository.save(venue);
     }
 
-    public Venue updateVenue(Long id, Venue venueDetails) {
+    public Venue updateVenue(String id, Venue venueDetails) {
         return venueRepository.findById(id).map(venue -> {
             venue.setNombre(venueDetails.getNombre());
             venue.setDireccion(venueDetails.getDireccion());
@@ -36,7 +36,7 @@ public class VenueService {
         }).orElse(null);
     }
 
-    public boolean deleteVenue(Long id) {
+    public boolean deleteVenue(String id) {
         return venueRepository.findById(id).map(venue -> {
             venueRepository.delete(venue);
             return true;

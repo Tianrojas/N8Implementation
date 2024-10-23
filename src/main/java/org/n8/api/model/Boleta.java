@@ -9,21 +9,22 @@ public class Boleta {
     @Id
     private String id;
     private String eventName;
-    private Long userId;
-    private double price;
-    private LocalDateTime purchaseDate;
+    private String userId;
+    private String price;
+    private String purchaseDate;
 
     // Constructor vacío
     public Boleta() {
     }
 
     // Constructor con parámetros
-    public Boleta(String eventName, Long userId, double price, LocalDateTime purchaseDate) {
+    public Boleta(String eventName, String userId, String price, String purchaseDate) {
         this.eventName = eventName;
         this.userId = userId;
         this.price = price;
         this.purchaseDate = purchaseDate;
     }
+
 
     // Getters y Setters
     public String getId() {
@@ -42,27 +43,27 @@ public class Boleta {
         this.eventName = eventName;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public LocalDateTime getPurchaseDate() {
+    public String getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(LocalDateTime purchaseDate) {
+    public void setPurchaseDate(String purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
 }
