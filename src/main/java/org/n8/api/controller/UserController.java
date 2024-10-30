@@ -22,14 +22,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // curl -X GET "http://localhost:8080/users"
+    // curl -X GET "http://localhost:8080/users" -H "Content-Type: application/json" -H "Authorization: Bearer <token>"
     @GetMapping
     public List<User> getAllUsers() {
         return userService.findAll();
     }
 
-    // curl -X POST "http://localhost:8080/users" -H "Content-Type: application/json" -d "{\"id\":\"rt465ty\",\"nombre\":\"d\",\"email\":\"s\",\"telefono\":\"fds\",\"metodoPago\":\"sdsa\",\"rol\":\"customer\"}"
-    @PostMapping
+    // curl -X POST "http://localhost:8080/users" -H "Content-Type: application/json" -d "{\"id\":\"rt465ty\",\"nombre\":\"d\",\"email\":\"s\",\"telefono\":\"fds\",\"metodoPago\":\"sdsa\",\"rol\":\"customer\"}"    @PostMapping
     public User createUser(@RequestBody User user) {
         return userService.save(user);
     }
@@ -105,6 +104,8 @@ public class UserController {
     public void deleteVenueFromUser(@PathVariable String id, @PathVariable String venueId) {
         userService.deleteVenueFromUser(id, venueId);
     }
+
+    // curl -X POST "http://localhost:8080/users/login" -H "Content-Type: application/json" -d "{\"email\":\"juan@example.com\",\"password\":\"securePassword\"}"
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User loginRequest) {
         // Verificar que el usuario y contraseña coincidan
@@ -122,5 +123,12 @@ public class UserController {
             // Si la autenticación falla, devolver un error 401 (Unauthorized)
             return ResponseEntity.status(401).body("Credenciales inválidas");
         }
+    }
+
+    //curl -X POST "http://localhost:8080/users/register" -H "Content-Type: application/json" -d "{\"id\":\"123\",\"nombre\":\"Juan\",\"email\":\"juan@example.com\",\"telefono\":\"1234567890\",\"metodoPago\":\"credit_card\",\"rol\":\"Customer\",\"password\":\"securePassword\"}"
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody User user) {
+        User newUser = userService.save(user);
+        return ResponseEntity.ok(newUser);
     }
 }
