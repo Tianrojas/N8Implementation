@@ -9,6 +9,7 @@ import org.n8.api.repository.UserRepository;
 import org.n8.api.repository.VenueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,11 +28,14 @@ public class UserService {
     @Autowired
     private VenueRepository venueRepository;
 
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
     public User save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -48,8 +52,19 @@ public class UserService {
             user.setRol(updatedUser.getRol());
             user.setTicketIds(updatedUser.getTicketIds());
             user.setVenueIds(updatedUser.getVenueIds());
+
+            // Si se incluye una nueva contraseña, hashearla antes de guardar
+            if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
+                user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+            }
+
             return userRepository.save(user);
         }).orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
+    }
+
+    public boolean authenticate(String email, String rawPassword) {
+        User user = findByEmail(email);
+        return passwordEncoder.matches(rawPassword, user.getPassword());
     }
 
     public User findByEmail(String email) {

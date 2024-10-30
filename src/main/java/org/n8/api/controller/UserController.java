@@ -5,13 +5,19 @@ import org.n8.api.model.User;
 import org.n8.api.model.Venue;
 import org.n8.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.n8.api.security.JwtUtil;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Autowired
     private UserService userService;
@@ -98,5 +104,23 @@ public class UserController {
     @DeleteMapping("/{id}/venues/{venueId}")
     public void deleteVenueFromUser(@PathVariable String id, @PathVariable String venueId) {
         userService.deleteVenueFromUser(id, venueId);
+    }
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody User loginRequest) {
+        // Verificar que el usuario y contraseña coincidan
+        boolean isAuthenticated = userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
+
+        if (isAuthenticated) {
+            // Generar JWT si la autenticación es exitosa
+            String token = jwtUtil.generateToken(loginRequest.getEmail());
+
+            // Devolver el token en la respuesta
+            Map<String, String> response = new HashMap<>();
+            response.put("token", token);
+            return ResponseEntity.ok(response);
+        } else {
+            // Si la autenticación falla, devolver un error 401 (Unauthorized)
+            return ResponseEntity.status(401).body("Credenciales inválidas");
+        }
     }
 }

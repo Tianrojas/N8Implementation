@@ -13,6 +13,7 @@ public class User {
     private String telefono;
     private String metodoPago;
     private String rol;
+    private String password;
 
     private List<String> ticketIds;
     private List<String> venueIds;
@@ -21,7 +22,7 @@ public class User {
     }
 
     public User(String id, String nombre, String email, String telefono, String metodoPago, String rol,
-                List<String> ticketIds, List<String> venueIds) {
+                List<String> ticketIds, List<String> venueIds, String password) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
@@ -30,6 +31,7 @@ public class User {
         this.rol = rol;
         this.ticketIds = ticketIds;
         this.venueIds = venueIds;
+        this.password = password;
     }
 
     public String getId() {
@@ -94,5 +96,12 @@ public class User {
 
     public void setVenueIds(List<String> venueIds) {
         this.venueIds = venueIds;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public String getPassword() {
+        return password;
     }
 }
