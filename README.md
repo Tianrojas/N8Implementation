@@ -1,4 +1,3 @@
-
 # NightOwl: Plataforma de Intermediación entre Bares, Discotecas y Clientes
 
 ## Presentación General del Proyecto
@@ -9,103 +8,77 @@ NightOwl es una plataforma diseñada para actuar como intermediario entre bares,
 
 Para validar nuestra solución, utilizaremos encuestas mediante Google Docs, donde solicitaremos a los encuestados que compartan sus experiencias y necesidades. Esto nos permitirá entender mejor las problemáticas que enfrentan y cómo NightOwl puede ser útil para ellos. Además, aplicaremos métodos de desarrollo de negocios, como el modelo CANVAS, para evaluar la viabilidad y rentabilidad del proyecto.
 
-## Entregable 1: Prototipo Visual e Implementación Controladores + Persistencia
+## Entregable 2: Seguridad y Despliegue Backend
 
 ### Objetivo
 
-Desarrollar un prototipo visual utilizando IA generativa y un modelo de datos, seguido de la implementación de controladores con conexión a la persistencia de datos.
+Integrar una capa de seguridad JWT en el proyecto backend y preparar el despliegue del mismo.
 
 ### Instrucciones Paso a Paso
 
-1. **Configuración del Repositorio:**
-   - Crear un repositorio en GitHub para el proyecto.
-   - Configurar acceso para el equipo de trabajo.
-   - Iniciar un proyecto con configuración base y crear un `README.md`.
+1. **Implementación de JWT:**
+   - Se incorporó autenticación JWT para proteger el acceso a los endpoints.
+   - Se implementaron rutas de registro y login de usuarios que generan y validan tokens JWT.
+   - Se gestionó la seguridad de rutas y control de acceso basado en roles de usuario (`Customer` y `Hoster`).
 
-2. **Diseño del Modelo de Datos:**
-   - Definir el modelo de datos para los usuarios, productos y pedidos.
-     1. **Usuario**
-         - **ID**: Identificador único del usuario (String).
-         - **Nombre**: Nombre completo del usuario (String).
-         - **Email**: Dirección de correo electrónico (String).
-         - **Teléfono**: Número de teléfono (String).
-         - **Método de Pago**: Tipo de pago preferido (String; puede ser tarjeta de crédito, débito, etc.).
-         - **Rol**: Tipo de usuario (String; puede ser cliente, administrador, etc.).
-      
-      2. **Establecimiento**
-         - **ID**: Identificador único del Establecimiento (Long).
-         - **Nombre**: Nombre del producto (String).
-         - **Dirección**: Dirección del lugar(String)
-         - **Ciudad**: Ciudad del establecimiento (String).
-         - **Telefono**: Telefono de contacto del lugar.
-         - **Tipo**: Indica el tipo de establecimiento (Bar, disco, etc).
-      
-      3. **Pedido**
-         - **ID**: Identificador único del pedido (String).
-         - **ID de Usuario**: Referencia al usuario que realiza el pedido (String).
-         - **Lista de Productos**: Lista de productos incluidos en el pedido (List<String>; referencias a los IDs de los productos).
-         - **Fecha y Hora**: Fecha y hora en que se realizó el pedido (Date).
-         - **Estado**: Estado del pedido (String; puede ser pendiente, completado, cancelado, etc.).
-         - **Total**: Monto total del pedido (Double).
-         - Implementar clases con los tipos de datos y métodos necesarios.
-        
-      4. **Boleta**
-         - **ID**: Identificador único de la boleta (String).
-         - **ID de Pedido**: Referencia al pedido asociado (String).
-         - **Fecha de Emisión**: Fecha y hora en que se emitió la boleta (Date).
-         - **Monto Total**: Monto total de la boleta (Double).
-         - **Método de Pago**: Método utilizado para el pago (String; puede ser efectivo, tarjeta, etc.).
-         - **Estado**: Estado de la boleta (String; puede ser activa, cancelada, etc.).
+2. **Pruebas Unitarias:**
+   - Se escribieron pruebas unitarias para los controladores y servicios clave del sistema.
+   - Las pruebas cubren autenticación, lógica de negocio y manejo de errores en las rutas protegidas.
+   - Se validó la funcionalidad CRUD y se comprobó la seguridad de los endpoints con las pruebas.
 
-3. **Prototipo Visual con IA Generativa:**
-    - Investigar y seleccionar herramientas de IA generativa.
-    - Crear prototipos visuales que guíen el diseño de la interfaz del proyecto. [Modelo de Interfaz](https://marvelapp.com/prototype/705e5gg)
+3. **Documentación y Despliegue:**
+   - Se documentaron las APIs y el código de la aplicación para facilitar la comprensión y mantenimiento.
+   - Los cambios fueron subidos al repositorio de GitHub.
+   - Se incluyeron instrucciones para la configuración y ejecución en este archivo `README.md`.
+   
+### Seguridad y Autenticación
 
-4. **Implementación de Controladores y Servicios REST:**
-    - Desarrollar controladores para gestionar peticiones HTTP (GET, POST, PUT, DELETE).
-    - Implementar servicios REST siguiendo el nivel 2 del modelo de madurez de Richardson.
-    - Realizar operaciones CRUD sobre los modelos de datos.
+- **Implementación de JWT**: La aplicación ahora cuenta con una capa de seguridad basada en JSON Web Tokens (JWT) que permite la autenticación segura de usuarios. Cada usuario recibe un token al iniciar sesión, el cual se incluye en las peticiones HTTP para acceder a rutas protegidas.
+- **Control de Acceso Basado en Roles**: Las rutas se protegen según el rol del usuario (por ejemplo, `Customer` o `Hoster`), asegurando que solo usuarios con los permisos necesarios puedan acceder a los recursos relevantes.
+- **Rutas de Registro y Login**: Se crearon endpoints para que los usuarios puedan registrarse y autenticarse, generando un token JWT en el proceso.
 
-   ```java
-   @RestController
-   @RequestMapping("/users")
-   public class UserController {
-       @Autowired
-       private UserService userService;
+### Pruebas Unitarias
 
-       @GetMapping
-       public List<User> getAllUsers() {
-           return userService.findAll();
-       }
+- **Pruebas para Seguridad**: Se realizaron pruebas que validan la correcta generación y verificación de tokens JWT, así como el acceso a rutas protegidas basado en roles.
+- **Lógica de Negocio y Manejo de Errores**: Se cubrieron las principales funcionalidades del sistema, asegurando que los endpoints respondan adecuadamente en diferentes situaciones, como peticiones válidas, errores y acceso no autorizado.
+- **Cobertura de CRUD**: Las operaciones CRUD para usuarios, boletas y establecimientos fueron probadas para confirmar la correcta interacción con la base de datos y el funcionamiento de la lógica de negocio.
 
-       @PostMapping
-       public User createUser(@RequestBody User user) {
-           return userService.save(user);
-       }
+### Despliegue del Backend
 
-       @PutMapping("/{id}")
-       public User updateUser(@PathVariable String id, @RequestBody User updatedUser) {
-           return userService.modifyUser(id, updatedUser);
-       }
+1. **Configuración del Repositorio**:
+   - Se creó un repositorio en GitHub para el proyecto, con acceso configurado para el equipo.
+   - El repositorio incluye toda la configuración necesaria y documentación en este `README.md`.
 
-       @DeleteMapping("/{id}")
-       public void deleteUser(@PathVariable String id) {
-           userService.deleteUser(id);
-       }
-   }
-   ```
+### Endpoints Principales
 
-5. **Integración con MongoDB:**
-    - Crear y configurar un clúster en MongoDB Atlas.
-    - Conectar la base de datos MongoDB con el proyecto.
-    - Implementar operaciones de base de datos en los controladores.
+A continuación, se muestra un resumen de los endpoints más relevantes para la interacción con la API de NightOwl.
 
-   ```java
-   public User modifyUser(String userId, User updatedUser) {
-       // Lógica para actualizar la base de datos
-   }
-   ```
+- **Usuarios**:
+  - `POST /users/register`: Registrar un nuevo usuario.
+  - `POST /users/login`: Iniciar sesión y obtener un token JWT.
+  - `GET /users`: Obtener la lista de todos los usuarios (protegido).
+  - `PUT /users/{id}`: Actualizar información de usuario (protegido).
+  - `DELETE /users/{id}`: Eliminar usuario (protegido).
 
-## Conclusiones
+- **Boletas y Establecimientos**:
+  - `POST /users/{id}/tickets`: Añadir una boleta al usuario (protegido).
+  - `GET /users/{id}/tickets`: Obtener boletas de un usuario específico (protegido).
+  - `POST /users/{id}/venues`: Añadir un establecimiento al usuario (protegido).
+  - `GET /users/{id}/venues`: Obtener establecimientos de un usuario específico (protegido).
 
-El desarrollo de NightOwl no solo resolverá los problemas actuales de las filas en los bares y discotecas, sino que también brindará una experiencia mejorada al usuario final. Con una sólida base de datos y un diseño intuitivo, NightOwl se posicionará como una solución valiosa en el mercado.
+### Ejemplo de Configuración JWT en `application.properties`
+
+```properties
+jwt.secret=your_jwt_secret_key
+```
+
+### Ejecución de la Aplicación
+- Compilar y Ejecutar:
+  - Ejecuta el comando mvn spring-boot:run para iniciar la aplicación localmente.
+- Autenticación de Usuarios:
+  - Accede a /users/login para obtener un token JWT y utiliza este token en el encabezado Authorization: Bearer <token> para acceder a rutas protegidas.
+    
+### Conclusiones
+Con esta implementación, NightOwl asegura la autenticación y autorización de sus usuarios mediante JWT, fortaleciendo la seguridad y el control de acceso en el backend. La integración de pruebas unitarias garantiza la fiabilidad del sistema, mientras que el despliegue en la nube permite ofrecer la solución a una mayor audiencia de forma escalable y segura.
+
+
