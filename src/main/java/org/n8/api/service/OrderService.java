@@ -35,6 +35,6 @@ public class OrderService {
 
     // Método para obtener pedidos por ID de usuario
     public List<Order> getOrdersByUserId(String userId) {
-        return orderRepository.findByuserId(userId);
+        return orderRepository.findByUserId(userId);
     }
 }
