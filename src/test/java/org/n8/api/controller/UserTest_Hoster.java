@@ -3,8 +3,6 @@ package org.n8.api.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.n8.api.config.TestMongoConfig;
-import org.n8.api.model.Boleta;
-import org.n8.api.model.User;
 import org.n8.api.model.Venue;
 import org.n8.api.security.JwtUtil;
 import org.n8.api.service.UserService;
