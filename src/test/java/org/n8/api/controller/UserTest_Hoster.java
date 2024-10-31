@@ -1,5 +1,6 @@
 package org.n8.api.controller;
 
+import io.jsonwebtoken.Claims;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.n8.api.config.TestMongoConfig;
@@ -42,10 +43,20 @@ public class UserTest_Hoster {
 
     @BeforeEach
     public void setup() {
-        when(jwtUtil.generateToken(anyString())).thenReturn(jwtToken);
+        // Mock para generar el token
+        when(jwtUtil.generateToken(anyString(), anyString())).thenReturn(jwtToken);
+
+        // Mock para validar el token y extraer el email
         when(jwtUtil.validateToken(eq(jwtToken), anyString())).thenReturn(true);
-        when(jwtUtil.extractEmail(eq(jwtToken))).thenReturn("hoster@example.com");
+        when(jwtUtil.extractEmail(eq(jwtToken))).thenReturn("customer@example.com");
+
+        // Mock para los claims
+        Claims claims = mock(Claims.class);
+        when(claims.get("role", String.class)).thenReturn("Hoster");
+        when(jwtUtil.extractClaims(jwtToken)).thenReturn(claims);
     }
+
+
 
     // Venue-related endpoints (Hoster role should have access)
 
