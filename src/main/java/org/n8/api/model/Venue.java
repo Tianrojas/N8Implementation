@@ -3,6 +3,8 @@ package org.n8.api.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document(collection = "venues")
 public class Venue {
     @Id
@@ -12,19 +14,23 @@ public class Venue {
     private String ciudad;
     private String telefono;
     private String tipo;
+    private List<String> boleteriaIds;
+    private List<String> menuIds;
 
     // Constructor vacío para JPA
     public Venue() {
     }
 
     // Constructor con parámetros
-    public Venue(String id, String nombre, String direccion, String ciudad, String telefono, String tipo) {
+    public Venue(String id, String nombre, String direccion, String ciudad, String telefono, String tipo, List<String> menuIds, List<String> boleteriaIds) {
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
         this.ciudad = ciudad;
         this.telefono = telefono;
         this.tipo = tipo;
+        this.menuIds = menuIds;
+        this.boleteriaIds = boleteriaIds;
     }
 
     // Getters y Setters
@@ -74,5 +80,20 @@ public class Venue {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+    public List<String> getBoleteriasIds() {
+        return boleteriaIds;
+    }
+
+    public void setBoleteriasIds(List<String> ticketIds) {
+        this.boleteriaIds = ticketIds;
+    }
+
+    public List<String> getMenuIds() {
+        return menuIds;
+    }
+
+    public void setMenuIds(List<String> venueIds) {
+        this.menuIds = venueIds;
     }
 }

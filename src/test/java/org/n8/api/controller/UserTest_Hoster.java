@@ -51,7 +51,7 @@ public class UserTest_Hoster {
 
     @Test
     public void testGetUserVenues() throws Exception {
-        Venue venue = new Venue("1", "Stadium", "Street 123", "City", "123456789", "Sport");
+        Venue venue = new Venue("1", "Stadium", "Street 123", "City", "123456789", "Sport",Arrays.asList(), Arrays.asList());
         List<Venue> venues = Arrays.asList(venue);
 
         when(userService.getVenuesByUserId("1")).thenReturn(venues);
@@ -65,7 +65,7 @@ public class UserTest_Hoster {
 
     @Test
     public void testGetUserVenueById() throws Exception {
-        Venue venue = new Venue("1", "Stadium", "Street 123", "City", "123456789", "Sport");
+        Venue venue = new Venue("1", "Stadium", "Street 123", "City", "123456789", "Sport",Arrays.asList(), Arrays.asList());
 
         when(userService.getVenueByUserIdAndVenueId("1", "1")).thenReturn(venue);
 
@@ -78,7 +78,7 @@ public class UserTest_Hoster {
 
     @Test
     public void testAddVenueToUser() throws Exception {
-        Venue venue = new Venue("1", "Stadium", "Street 123", "City", "123456789", "Sport");
+        Venue venue = new Venue("1", "Stadium", "Street 123", "City", "123456789", "Sport",Arrays.asList(), Arrays.asList());
         when(userService.addVenueToUser(eq("1"), any(Venue.class))).thenReturn(venue);
 
         mockMvc.perform(post("/users/1/venues")
@@ -91,7 +91,7 @@ public class UserTest_Hoster {
 
     @Test
     public void testUpdateVenue() throws Exception {
-        Venue updatedVenue = new Venue("1", "Updated Stadium", "New Street", "New City", "987654321", "Cultural");
+        Venue updatedVenue = new Venue("1", "Updated Stadium", "New Street", "New City", "987654321", "Cultural",Arrays.asList(), Arrays.asList());
         when(userService.updateVenue(eq("1"), eq("1"), any(Venue.class))).thenReturn(updatedVenue);
 
         mockMvc.perform(put("/users/1/venues/1")
