@@ -17,6 +17,7 @@ import java.util.Collections;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     @Autowired
@@ -250,4 +251,20 @@ public class UserController {
 
         return ResponseEntity.ok("Usuario registrado exitosamente");
     }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<?> refreshToken(@RequestParam String refreshToken) {
+        try {
+            if (jwtUtil.validateToken(refreshToken, jwtUtil.extractEmail(refreshToken))) {
+                String email = jwtUtil.extractEmail(refreshToken);
+                String role = jwtUtil.extractClaims(refreshToken).get("role", String.class);
+                String newToken = jwtUtil.generateToken(email, role);
+                return ResponseEntity.ok(Collections.singletonMap("token", newToken));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Refresh token inválido.");
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
 }

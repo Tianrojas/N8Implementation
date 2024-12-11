@@ -33,7 +33,7 @@ public class JwtUtil {
                 .setSubject(email)
                 .claim("role", role)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 horas
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7)) // 7 días
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }
